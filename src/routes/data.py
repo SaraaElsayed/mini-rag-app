@@ -23,7 +23,7 @@ async def upload_data (request:Request, project_id : str, file  : UploadFile,
                        app_settings : settings = Depends(get_settings)):
     
     
-    project_model = ProjectModel(db_client = request.app.db_client)
+    project_model = await ProjectModel.create_instance(db_client = request.app.db_client)
     project = await project_model.get_or_insert_project(project_id=project_id)
     
     #validate the file properties
@@ -43,7 +43,7 @@ async def upload_data (request:Request, project_id : str, file  : UploadFile,
     project_dir_path = ProjectController().get_project_path(project_id=project_id)   
     file_path, file_id = data_controller.generate_unique_filepath(
         orig_file_name=file.filename,
-        project_id=str(project.id)
+        project_id=project_id
      )
     
     try:
@@ -79,12 +79,11 @@ async def process_endpoint(project_id:str, process_request : ProcessRequest, req
     overlap_size = process_request.overlap_size
     do_reset = process_request.do_reset
     
-    project_model = ProjectModel(
-        db_client=request.app.db_client
-    )
+    
+    project_model = await ProjectModel.create_instance(db_client = request.app.db_client)
     project = await project_model.get_or_insert_project(project_id=project_id)
     
-    chunk_model = ChunkModel(
+    chunk_model = await ChunkModel.create_instance(
         db_client=request.app.db_client
     )
     
@@ -128,5 +127,6 @@ async def process_endpoint(project_id:str, process_request : ProcessRequest, req
             "no-inserted_chunks":no_records
         }
     )
+     
         
            
