@@ -36,7 +36,9 @@ class ProjectModel(BaseDataModel):
     
     async def get_or_insert_project(self, project_id : str):
         
-        record = await self.collection.find_one({project_id:project_id})
+        record = await self.collection.find_one({
+            "project_id": project_id
+        })
         
         if record is None:
             project = Project(project_id = project_id)

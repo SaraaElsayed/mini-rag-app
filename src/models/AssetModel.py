@@ -1,13 +1,13 @@
 from .BaseDataModel import BaseDataModel
 from .enums.DataBaseEnum import DataBaseEnum
 from .db_schemes import Asset
-from bson import ObjectID
+from bson.objectid import ObjectId
 
 
-class ProjectModel(BaseDataModel):
+class AssetModel(BaseDataModel):
     def __init__(self, db_client : object):
         super().__init__(db_client)
-        self.collection = self.db_client[DataBaseEnum.COLLECTION_ASSET_NAME]
+        self.collection = self.db_client[DataBaseEnum.COLLECTION_ASSET_NAME.value]
         
     @classmethod
     async def create_instance(cls, db_client:object):
@@ -30,16 +30,15 @@ class ProjectModel(BaseDataModel):
     async def insert_asset(self, asset:Asset):
         result = await self.collection.insert_one(asset.dict(by_alias=True, exclude_unset=True))     
         asset.id = result.inserted_id
+
         
         return asset
     
     async def get_all_project_assets(self,asset_project_id:str, asset_type:str):
-        records = await self.collection.find_one(
-            {
-                "asset_project_id" : ObjectID(asset_project_id) if isinstance (asset_project_id,str) else asset_project_id,
-                "asset_type" : asset_type
-            }
-        ).to_list(length = None)
+        records = await self.collection.find({
+            "asset_project_id": ObjectId(asset_project_id) if isinstance(asset_project_id, str) else asset_project_id,
+            "asset_type": asset_type,
+            }).to_list(length=None)
         
         return [
             Asset(**record)
@@ -49,8 +48,8 @@ class ProjectModel(BaseDataModel):
     async def get_asset_record(self,asset_project_id:str, asset_name:str):
         record = await self.collection.find_one(
             {
-                "asset_project_id" : ObjectID(asset_project_id) if isinstance (asset_project_id,str) else asset_project_id,
-                "asset_type" : asset_name
+                "asset_project_id" : ObjectId(asset_project_id) if isinstance (asset_project_id,str) else asset_project_id,
+                "asset_type" : asset_name,
             }
         )
         if record:
