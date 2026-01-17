@@ -1,0 +1,19 @@
+[33mcommit 4625a8402ac402832e79c1ce7985618ab6d946e6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32m008[m[33m, [m[1;31morigin/008[m[33m)[m
+Author: Abu Bakr <64726450+abubakr-soliman@users.noreply.github.com>
+Date:   Thu Aug 15 10:54:46 2024 +0300
+
+    support getting answers from LLMs
+
+src/helpers/config.py
+src/main.py
+src/models/db_schemes/__init__.py
+src/models/enums/ResponseEnums.py
+src/stores/llm/templates/__init__.py
+src/stores/llm/templates/locales/__init__.py
+src/stores/llm/templates/locales/ar/__init__.py
+src/stores/llm/templates/locales/ar/rag.py
+src/stores/llm/templates/locales/en/__init__.py
+src/stores/llm/templates/locales/en/rag.py
+src/stores/llm/templates/template_parser.py
+src/stores/vectordb/VectorDBInterface.py
+src/stores/vectordb/providers/QdrantDBProvider.py
