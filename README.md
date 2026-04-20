@@ -24,6 +24,7 @@ A production-ready **Retrieval-Augmented Generation (RAG)** system that allows u
 
 ## 🏛️ Architecture
 
+```bash
 User Request
 │
 ▼
@@ -48,7 +49,7 @@ FastAPI Backend
 └── Stores
 ├── PGVector (PostgreSQL)
 └── Qdrant
-
+```
 ---
 
 ## 🛠️ Tech Stack
@@ -151,6 +152,7 @@ Download the full Postman collection: [`/assets/mini-rag-app.postman_collection.
 
 ## 📁 Project Structure
 
+```bash
 mini-rag-app/
 ├── docker/                  # Docker & Compose configuration
 ├── src/
@@ -177,7 +179,7 @@ mini-rag-app/
 ├── requirements.txt
 ├── .env.example
 └── README.md
-
+```
 ---
 
 
